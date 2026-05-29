@@ -4,6 +4,13 @@
 
 ![](/project.svg)
 
+## Inputs
+
+- **Shape** (geometry)
+- **Number** (number)
+- **Angle** (number)
+
+
 
 
  

@@ -35,7 +35,7 @@
     {
       "atomType": "Input",
       "x": 0.025384615384615384,
-      "y": 0.15963855421686746,
+      "y": 0.15384615384615385,
       "uniqueID": 1727806514723,
       "name": "Shape",
       "type": "geometry"
@@ -43,57 +43,21 @@
     {
       "atomType": "Input",
       "x": 0.025384615384615384,
-      "y": 0.24615384615384617,
+      "y": 0.44011142061281333,
       "uniqueID": 1727806525687,
       "name": "Number"
     },
     {
       "atomType": "Input",
       "x": 0.025384615384615384,
-      "y": 0.3384615384615385,
+      "y": 0.6713091922005571,
       "uniqueID": 1727806534900,
       "name": "Angle"
     },
     {
-      "atomType": "Circle",
-      "x": 0.19136960600375233,
-      "y": 0.20055710306406688,
-      "uniqueID": 1727806544750,
-      "ioValues": [
-        {
-          "name": "diameter",
-          "ioValue": 10
-        }
-      ]
-    },
-    {
-      "atomType": "Move",
-      "x": 0.2786116322701689,
-      "y": 0.36490250696378834,
-      "uniqueID": 1727806548860,
-      "ioValues": [
-        {
-          "name": "geometry",
-          "ioValue": "__GEOMETRY_INPUT__"
-        },
-        {
-          "name": "xDist",
-          "ioValue": 100
-        },
-        {
-          "name": "yDist",
-          "ioValue": 0
-        },
-        {
-          "name": "zDist",
-          "ioValue": 0
-        }
-      ]
-    },
-    {
       "atomType": "Code",
-      "x": 0.48484848484848486,
-      "y": 0.7198795180722891,
+      "x": 0.39153439153439157,
+      "y": 0.4651810584958217,
       "uniqueID": 1727806559374,
       "ioValues": [
         {
@@ -109,24 +73,8 @@
           "ioValue": 30
         }
       ],
-      "codeVersion": 1,
+      "interpreterVersion": 0,
       "code": "\nconst Inputs = [\n  { inputName: \"Shape\", type: \"geometry\", defaultValue: null },\n  { inputName: \"Number\", type: \"number\", defaultValue: 5 },\n  { inputName: \"Angle\", type: \"number\", defaultValue: 10 }\n];\n\n\nlet shapesArray = [];\nfor (let i = 0; i < Number; i++) {\n    let rotatedShape = await Rotate(Shape, 0, 0, Angle * i);\n    shapesArray.push(rotatedShape);\n}\n\nlet assembledShape = await Assembly(shapesArray)\n\nreturn assembledShape;\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n    /**\n    To Use the Code Atom, enter your inputs to the input list a.e Inputs:[shape, height]\n    If your input is connected to another atom with a replicad geometry you can access its geometry by looking up its ID in your library. a.e library[Input1].geometry[0] \n    Use any replicad available methods to modify your geometry. Learn more about all of the available methods at \n    https://replicad.xyz/docs/introapp/UserGuide.html \n    Return a replicad object that includes geometry, color, tags and plane. \n\n\n    Example Code Atom:\n\n      Inputs:[shape, x];\n\n      let finalShape = library[shape].geometry[0].clone.translate[x,0,0]\n\n      return {geometry: finalShape, color: library[shape].color, plane: library[shape].plane, tags: library[shape].tags }\n\n      - See more examples at _______ \n\n\n    */\n"
-    },
-    {
-      "atomType": "Extrude",
-      "x": 0.4586864406779661,
-      "y": 0.2618384401114206,
-      "uniqueID": 1727810292283,
-      "ioValues": [
-        {
-          "name": "geometry",
-          "ioValue": "__GEOMETRY_INPUT__"
-        },
-        {
-          "name": "height",
-          "ioValue": 10
-        }
-      ]
     }
   ],
   "allConnectors": [
@@ -144,16 +92,6 @@
       "ap2Name": "Angle",
       "ap1ID": 1727806534900,
       "ap2ID": 1727806559374
-    },
-    {
-      "ap2Name": "geometry",
-      "ap1ID": 1727806544750,
-      "ap2ID": 1727806548860
-    },
-    {
-      "ap2Name": "geometry",
-      "ap1ID": 1727806548860,
-      "ap2ID": 1727810292283
     },
     {
       "ap2Name": "number or geometry",
