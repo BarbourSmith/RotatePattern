@@ -75,6 +75,65 @@
       ],
       "interpreterVersion": 1,
       "code": "\nconst Inputs = [\n  { inputName: \"Shape\", type: \"geometry\", defaultValue: null },\n  { inputName: \"Number\", type: \"number\", defaultValue: 5 },\n  { inputName: \"Angle\", type: \"number\", defaultValue: 10 }\n];\n\n\nlet shapesArray = [];\nfor (let i = 0; i < Number; i++) {\n    let rotatedShape = await Rotate(Shape, 0, 0, Angle * i);\n    shapesArray.push(rotatedShape);\n}\n\nlet assembledShape = await Assembly(shapesArray)\n\nreturn assembledShape;\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n    /**\n    To Use the Code Atom, enter your inputs to the input list a.e Inputs:[shape, height]\n    If your input is connected to another atom with a replicad geometry you can access its geometry by looking up its ID in your library. a.e library[Input1].geometry[0] \n    Use any replicad available methods to modify your geometry. Learn more about all of the available methods at \n    https://replicad.xyz/docs/introapp/UserGuide.html \n    Return a replicad object that includes geometry, color, tags and plane. \n\n\n    Example Code Atom:\n\n      Inputs:[shape, x];\n\n      let finalShape = library[shape].geometry[0].clone.translate[x,0,0]\n\n      return {geometry: finalShape, color: library[shape].color, plane: library[shape].plane, tags: library[shape].tags }\n\n      - See more examples at _______ \n\n\n    */\n"
+    },
+    {
+      "atomType": "Code",
+      "x": 0.6408730158730158,
+      "y": 0.6935933147632313,
+      "uniqueID": "id-58",
+      "ioValues": [
+        {
+          "name": "Shape",
+          "ioValue": "__GEOMETRY_INPUT__"
+        },
+        {
+          "name": "Number",
+          "ioValue": 6
+        },
+        {
+          "name": "Angle",
+          "ioValue": 43
+        }
+      ],
+      "interpreterVersion": 1,
+      "code": "function run(\n  Shape?: Assembly,\n  Number: number = 5,\n  Angle: number = 10\n) {\n  if (!Shape) return null;\n\n  const shapesArray: Assembly[] = [];\n\n  for (let i = 0; i < Number; i++) {\n    const rotatedShape = new Assembly(Shape);\n\n    rotatedShape.onLeafs((leaf) => {\n      leaf.geometry = leaf.geometry.rotate(Angle * i, [0, 0, 1]);\n      return leaf;\n    });\n\n    shapesArray.push(rotatedShape);\n  }\n\n  return new Assembly({ geometry: shapesArray });\n}\n",
+      "compiledCode": "\"use strict\";\nfunction run(Shape, Number = 5, Angle = 10) {\n    if (!Shape)\n        return null;\n    const shapesArray = [];\n    for (let i = 0; i < Number; i++) {\n        const rotatedShape = new Assembly(Shape);\n        rotatedShape.onLeafs((leaf) => {\n            leaf.geometry = leaf.geometry.rotate(Angle * i, [0, 0, 1]);\n            return leaf;\n        });\n        shapesArray.push(rotatedShape);\n    }\n    return new Assembly({ geometry: shapesArray });\n}\n"
+    },
+    {
+      "atomType": "Circle",
+      "x": 0.29828042328042326,
+      "y": 0.7883008356545962,
+      "uniqueID": "id-70",
+      "ioValues": [
+        {
+          "name": "diameter",
+          "ioValue": 10
+        }
+      ]
+    },
+    {
+      "atomType": "Move",
+      "x": 0.43320105820105814,
+      "y": 0.7493036211699164,
+      "uniqueID": "id-73",
+      "ioValues": [
+        {
+          "name": "geometry",
+          "ioValue": "__GEOMETRY_INPUT__"
+        },
+        {
+          "name": "xDist",
+          "ioValue": 29
+        },
+        {
+          "name": "yDist",
+          "ioValue": 0
+        },
+        {
+          "name": "zDist",
+          "ioValue": 0
+        }
+      ]
     }
   ],
   "allConnectors": [
@@ -97,6 +156,16 @@
       "ap2Name": "number or geometry",
       "ap1ID": 1727806559374,
       "ap2ID": 1727806508178
+    },
+    {
+      "ap2Name": "geometry",
+      "ap1ID": "id-70",
+      "ap2ID": "id-73"
+    },
+    {
+      "ap2Name": "Shape",
+      "ap1ID": "id-73",
+      "ap2ID": "id-58"
     }
   ],
   "unitsKey": "Inches",
