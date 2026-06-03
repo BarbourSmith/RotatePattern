@@ -127,7 +127,7 @@
         }
       ],
       "interpreterVersion": 1,
-      "code": "function run(\n  shape: Assembly,\n  count: number = 5,\n  angle: number = 360,\n  axis: Assembly = [0, 0, 1],\n  center: Assembly = [0, 0, 0]\n){\n  const anglePerCopy = angle / count;\n  let shapesArray: Assembly[] = [];\n\n  for (let i = 0; i < count; i++) {\n    const rotatedAssembly = new Assembly(shape).onLeafs((leaf) => {\n      const rotationAngle = anglePerCopy * i;\n      if (leaf.is2D()) {\n        leaf.geometry = leaf.geometry.clone().rotate(rotationAngle, axis);\n        leaf.plane = leaf.plane.rotate(rotationAngle, axis, center);\n      } else {\n        leaf.geometry = leaf.geometry.clone().rotate(rotationAngle, axis, center);\n      }\n      return leaf;\n    });\n    shapesArray.push(rotatedAssembly);\n  }\n\n  return shapesArray;\n}"
+      "code": "function run(\n  shape: Assembly,\n  count: number = 5,\n  angle: number = 360,\n){\n\n  let axis = [0, 0, 1]\n  let center= [0, 0, 0]\n  const anglePerCopy = angle / count;\n  let shapesArray: Assembly[] = [];\n\n  for (let i = 0; i < count; i++) {\n    const rotatedAssembly = new Assembly(shape).onLeafs((leaf) => {\n      const rotationAngle = anglePerCopy * i;\n      if (leaf.is2D()) {\n        leaf.geometry = leaf.geometry.clone().rotate(rotationAngle, axis);\n        leaf.plane = leaf.plane.rotate(rotationAngle, axis, center);\n      } else {\n        leaf.geometry = leaf.geometry.clone().rotate(rotationAngle, axis, center);\n      }\n      return leaf;\n    });\n    shapesArray.push(rotatedAssembly);\n  }\n\n  return shapesArray;\n}"
     }
   ],
   "allConnectors": [
