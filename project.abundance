@@ -68,8 +68,8 @@
     },
     {
       "atomType": "Move",
-      "x": 0.37135036496350365,
-      "y": 0.6128048780487805,
+      "x": 0.48409286328460877,
+      "y": 0.7469512195121951,
       "uniqueID": "id-73",
       "ioValues": [
         {
@@ -92,48 +92,74 @@
     },
     {
       "atomType": "Code",
-      "x": 0.5623387790197765,
-      "y": 0.4268292682926829,
+      "x": 0.4978503869303525,
+      "y": 0.29878048780487804,
       "uniqueID": "id-100",
       "ioValues": [
         {
-          "name": "width",
-          "ioValue": 40
-        },
-        {
-          "name": "depth",
-          "ioValue": 30
-        },
-        {
-          "name": "thickness",
-          "ioValue": 5
-        },
-        {
-          "name": "holeRadius",
-          "ioValue": 6
-        },
-        {
-          "name": "color",
-          "ioValue": "#5B9BD5",
-          "currentEquation": "#5B9BD5"
-        },
-        {
-          "name": "addFillet",
-          "ioValue": true
-        },
-        {
-          "name": "extra",
+          "name": "shape",
           "ioValue": "__GEOMETRY_INPUT__"
+        },
+        {
+          "name": "count",
+          "ioValue": 10
+        },
+        {
+          "name": "angle",
+          "ioValue": 30,
+          "currentEquation": "20"
         }
       ],
       "interpreterVersion": 1,
-      "code": "function run(\n  shape: Assembly,\n  count: number = 5,\n  angle: number = 360,\n){\n\n  let axis = [0, 0, 1]\n  let center= [0, 0, 0]\n  const anglePerCopy = angle / count;\n  let shapesArray: Assembly[] = [];\n\n  for (let i = 0; i < count; i++) {\n    const rotatedAssembly = new Assembly(shape).onLeafs((leaf) => {\n      const rotationAngle = anglePerCopy * i;\n      if (leaf.is2D()) {\n        leaf.geometry = leaf.geometry.clone().rotate(rotationAngle, axis);\n        leaf.plane = leaf.plane.rotate(rotationAngle, axis, center);\n      } else {\n        leaf.geometry = leaf.geometry.clone().rotate(rotationAngle, axis, center);\n      }\n      return leaf;\n    });\n    shapesArray.push(rotatedAssembly);\n  }\n\n  return shapesArray;\n}"
+      "code": "function run(\n  shape: Assembly,\n  count: number = 3,\n  angle: number = 20,\n){\n\n  let axis = [0, 0, 1]\n  let center= [0, 0, 0]\n  const anglePerCopy = angle / count;\n  let shapesArray: Assembly[] = [];\n\n  for (let i = 0; i < count; i++) {\n    const rotatedAssembly = new Assembly(shape).onLeafs((leaf) => {\n      const rotationAngle = anglePerCopy * i;\n      if (leaf.is2D()) {\n        leaf.geometry = leaf.geometry.clone().rotate(rotationAngle, axis);\n        leaf.plane = leaf.plane.pivot(rotationAngle, axis, center);\n      } else {\n        leaf.geometry = leaf.geometry.clone().rotate(rotationAngle);\n      }\n      return leaf;\n    });\n    shapesArray.push(rotatedAssembly);\n  }\n\n  return shapesArray;\n}",
+      "compiledCode": "\"use strict\";\nfunction run(shape, count = 3, angle = 20) {\n    let axis = [0, 0, 1];\n    let center = [0, 0, 0];\n    const anglePerCopy = angle / count;\n    let shapesArray = [];\n    for (let i = 0; i < count; i++) {\n        const rotatedAssembly = new Assembly(shape).onLeafs((leaf) => {\n            const rotationAngle = anglePerCopy * i;\n            if (leaf.is2D()) {\n                leaf.geometry = leaf.geometry.clone().rotate(rotationAngle, axis);\n                leaf.plane = leaf.plane.pivot(rotationAngle, axis, center);\n            }\n            else {\n                leaf.geometry = leaf.geometry.clone().rotate(rotationAngle);\n            }\n            return leaf;\n        });\n        shapesArray.push(rotatedAssembly);\n    }\n    return shapesArray;\n}\n"
+    },
+    {
+      "atomType": "Extrude",
+      "x": 0.34737747205503006,
+      "y": 0.6585365853658536,
+      "uniqueID": "id-121",
+      "ioValues": [
+        {
+          "name": "geometry",
+          "ioValue": "__GEOMETRY_INPUT__"
+        },
+        {
+          "name": "height",
+          "ioValue": 10
+        }
+      ]
     }
   ],
   "allConnectors": [
     {
+      "ap2Name": "shape",
+      "ap1ID": 1727806514723,
+      "ap2ID": "id-100"
+    },
+    {
+      "ap2Name": "count",
+      "ap1ID": 1727806525687,
+      "ap2ID": "id-100"
+    },
+    {
+      "ap2Name": "angle",
+      "ap1ID": 1727806534900,
+      "ap2ID": "id-100"
+    },
+    {
       "ap2Name": "geometry",
       "ap1ID": "id-70",
+      "ap2ID": "id-121"
+    },
+    {
+      "ap2Name": "number or geometry",
+      "ap1ID": "id-100",
+      "ap2ID": 1727806508178
+    },
+    {
+      "ap2Name": "geometry",
+      "ap1ID": "id-121",
       "ap2ID": "id-73"
     }
   ],
