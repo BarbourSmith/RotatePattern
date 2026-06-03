@@ -11,11 +11,13 @@
     },
     {
       "name": "Number",
-      "ioValue": 10
+      "ioValue": 3,
+      "currentEquation": "3"
     },
     {
       "name": "Angle",
-      "ioValue": 30
+      "ioValue": 80,
+      "currentEquation": "80"
     }
   ],
   "topLevel": true,
@@ -68,8 +70,8 @@
     },
     {
       "atomType": "Move",
-      "x": 0.48409286328460877,
-      "y": 0.7469512195121951,
+      "x": 0.5021496130696474,
+      "y": 0.7073170731707318,
       "uniqueID": "id-73",
       "ioValues": [
         {
@@ -92,8 +94,8 @@
     },
     {
       "atomType": "Code",
-      "x": 0.5047291487532244,
-      "y": 0.3018292682926829,
+      "x": 0.5141874462596733,
+      "y": 0.3384146341463415,
       "uniqueID": "id-100",
       "ioValues": [
         {
@@ -102,12 +104,11 @@
         },
         {
           "name": "count",
-          "ioValue": 10
+          "ioValue": 3
         },
         {
           "name": "angle",
-          "ioValue": 30,
-          "currentEquation": "20"
+          "ioValue": 80
         }
       ],
       "interpreterVersion": 1,
@@ -116,8 +117,8 @@
     },
     {
       "atomType": "Extrude",
-      "x": 0.34737747205503006,
-      "y": 0.6585365853658536,
+      "x": 0.3207222699914015,
+      "y": 0.6646341463414633,
       "uniqueID": "id-121",
       "ioValues": [
         {
