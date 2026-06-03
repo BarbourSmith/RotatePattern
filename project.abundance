@@ -43,66 +43,21 @@
     {
       "atomType": "Input",
       "x": 0.025384615384615384,
-      "y": 0.44011142061281333,
+      "y": 0.24615384615384617,
       "uniqueID": 1727806525687,
       "name": "Number"
     },
     {
       "atomType": "Input",
       "x": 0.025384615384615384,
-      "y": 0.6713091922005571,
+      "y": 0.3384615384615385,
       "uniqueID": 1727806534900,
       "name": "Angle"
     },
     {
-      "atomType": "Code",
-      "x": 0.39285714285714285,
-      "y": 0.46239554317548753,
-      "uniqueID": 1727806559374,
-      "ioValues": [
-        {
-          "name": "Shape",
-          "ioValue": "__GEOMETRY_INPUT__"
-        },
-        {
-          "name": "Number",
-          "ioValue": 10
-        },
-        {
-          "name": "Angle",
-          "ioValue": 30
-        }
-      ],
-      "interpreterVersion": 1,
-      "code": "\nconst Inputs = [\n  { inputName: \"Shape\", type: \"geometry\", defaultValue: null },\n  { inputName: \"Number\", type: \"number\", defaultValue: 5 },\n  { inputName: \"Angle\", type: \"number\", defaultValue: 10 }\n];\n\n\nlet shapesArray = [];\nfor (let i = 0; i < Number; i++) {\n    let rotatedShape = await Rotate(Shape, 0, 0, Angle * i);\n    shapesArray.push(rotatedShape);\n}\n\nlet assembledShape = await Assembly(shapesArray)\n\nreturn assembledShape;\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n    /**\n    To Use the Code Atom, enter your inputs to the input list a.e Inputs:[shape, height]\n    If your input is connected to another atom with a replicad geometry you can access its geometry by looking up its ID in your library. a.e library[Input1].geometry[0] \n    Use any replicad available methods to modify your geometry. Learn more about all of the available methods at \n    https://replicad.xyz/docs/introapp/UserGuide.html \n    Return a replicad object that includes geometry, color, tags and plane. \n\n\n    Example Code Atom:\n\n      Inputs:[shape, x];\n\n      let finalShape = library[shape].geometry[0].clone.translate[x,0,0]\n\n      return {geometry: finalShape, color: library[shape].color, plane: library[shape].plane, tags: library[shape].tags }\n\n      - See more examples at _______ \n\n\n    */\n"
-    },
-    {
-      "atomType": "Code",
-      "x": 0.6408730158730158,
-      "y": 0.6935933147632313,
-      "uniqueID": "id-58",
-      "ioValues": [
-        {
-          "name": "Shape",
-          "ioValue": "__GEOMETRY_INPUT__"
-        },
-        {
-          "name": "Number",
-          "ioValue": 6
-        },
-        {
-          "name": "Angle",
-          "ioValue": 43
-        }
-      ],
-      "interpreterVersion": 1,
-      "code": "function run(\n  Shape?: Assembly,\n  Number: number = 5,\n  Angle: number = 10\n) {\n  if (!Shape) return null;\n\n  const shapesArray: Assembly[] = [];\n\n  for (let i = 0; i < Number; i++) {\n    const rotatedShape = new Assembly(Shape);\n\n    rotatedShape.onLeafs((leaf) => {\n      leaf.geometry = leaf.geometry.rotate(Angle * i, [0, 0, 1]);\n      return leaf;\n    });\n\n    shapesArray.push(rotatedShape);\n  }\n\n  return new Assembly({ geometry: shapesArray });\n}\n",
-      "compiledCode": "\"use strict\";\nfunction run(Shape, Number = 5, Angle = 10) {\n    if (!Shape)\n        return null;\n    const shapesArray = [];\n    for (let i = 0; i < Number; i++) {\n        const rotatedShape = new Assembly(Shape);\n        rotatedShape.onLeafs((leaf) => {\n            leaf.geometry = leaf.geometry.rotate(Angle * i, [0, 0, 1]);\n            return leaf;\n        });\n        shapesArray.push(rotatedShape);\n    }\n    return new Assembly({ geometry: shapesArray });\n}\n"
-    },
-    {
       "atomType": "Circle",
-      "x": 0.29828042328042326,
-      "y": 0.7883008356545962,
+      "x": 0.1852189781021898,
+      "y": 0.7774390243902438,
       "uniqueID": "id-70",
       "ioValues": [
         {
@@ -113,8 +68,8 @@
     },
     {
       "atomType": "Move",
-      "x": 0.43320105820105814,
-      "y": 0.7493036211699164,
+      "x": 0.37135036496350365,
+      "y": 0.6128048780487805,
       "uniqueID": "id-73",
       "ioValues": [
         {
@@ -134,38 +89,52 @@
           "ioValue": 0
         }
       ]
+    },
+    {
+      "atomType": "Code",
+      "x": 0.5623387790197765,
+      "y": 0.4268292682926829,
+      "uniqueID": "id-100",
+      "ioValues": [
+        {
+          "name": "width",
+          "ioValue": 40
+        },
+        {
+          "name": "depth",
+          "ioValue": 30
+        },
+        {
+          "name": "thickness",
+          "ioValue": 5
+        },
+        {
+          "name": "holeRadius",
+          "ioValue": 6
+        },
+        {
+          "name": "color",
+          "ioValue": "#5B9BD5",
+          "currentEquation": "#5B9BD5"
+        },
+        {
+          "name": "addFillet",
+          "ioValue": true
+        },
+        {
+          "name": "extra",
+          "ioValue": "__GEOMETRY_INPUT__"
+        }
+      ],
+      "interpreterVersion": 1,
+      "code": "function run(\n  shape: Assembly,\n  count: number = 5,\n  angle: number = 360,\n  axis: Assembly = [0, 0, 1],\n  center: Assembly = [0, 0, 0]\n){\n  const anglePerCopy = angle / count;\n  let shapesArray: Assembly[] = [];\n\n  for (let i = 0; i < count; i++) {\n    const rotatedAssembly = new Assembly(shape).onLeafs((leaf) => {\n      const rotationAngle = anglePerCopy * i;\n      if (leaf.is2D()) {\n        leaf.geometry = leaf.geometry.clone().rotate(rotationAngle, axis);\n        leaf.plane = leaf.plane.rotate(rotationAngle, axis, center);\n      } else {\n        leaf.geometry = leaf.geometry.clone().rotate(rotationAngle, axis, center);\n      }\n      return leaf;\n    });\n    shapesArray.push(rotatedAssembly);\n  }\n\n  return shapesArray;\n}"
     }
   ],
   "allConnectors": [
     {
-      "ap2Name": "Shape",
-      "ap1ID": 1727806514723,
-      "ap2ID": 1727806559374
-    },
-    {
-      "ap2Name": "Number",
-      "ap1ID": 1727806525687,
-      "ap2ID": 1727806559374
-    },
-    {
-      "ap2Name": "Angle",
-      "ap1ID": 1727806534900,
-      "ap2ID": 1727806559374
-    },
-    {
-      "ap2Name": "number or geometry",
-      "ap1ID": 1727806559374,
-      "ap2ID": 1727806508178
-    },
-    {
       "ap2Name": "geometry",
       "ap1ID": "id-70",
       "ap2ID": "id-73"
-    },
-    {
-      "ap2Name": "Shape",
-      "ap1ID": "id-73",
-      "ap2ID": "id-58"
     }
   ],
   "unitsKey": "Inches",
