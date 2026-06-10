@@ -11,13 +11,11 @@
     },
     {
       "name": "Number",
-      "ioValue": 3,
-      "currentEquation": "3"
+      "ioValue": 3
     },
     {
       "name": "Angle",
-      "ioValue": 80,
-      "currentEquation": "80"
+      "ioValue": 80
     }
   ],
   "topLevel": true,
