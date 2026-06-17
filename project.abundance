@@ -81,6 +81,11 @@
   ],
   "allConnectors": [
     {
+      "ap2Name": "shape",
+      "ap1ID": 1727806514723,
+      "ap2ID": "id-198"
+    },
+    {
       "ap2Name": "count",
       "ap1ID": 1727806525687,
       "ap2ID": "id-198"
