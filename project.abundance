@@ -93,8 +93,8 @@
     },
     {
       "atomType": "Code",
-      "x": 0.4834656084656085,
-      "y": 0.3203342618384401,
+      "x": 0.48148148148148145,
+      "y": 0.30362116991643456,
       "uniqueID": "id-100",
       "ioValues": [
         {
@@ -132,8 +132,8 @@
     },
     {
       "atomType": "Move",
-      "x": 0.5116402116402117,
-      "y": 0.8413649025069638,
+      "x": 0.5059523809523809,
+      "y": 0.8523676880222841,
       "uniqueID": "id-145",
       "ioValues": [
         {
@@ -167,10 +167,35 @@
       ]
     },
     {
+      "atomType": "Rotate",
+      "x": 0.806878306878307,
+      "y": 0.9331476323119776,
+      "uniqueID": "id-192",
+      "ioValues": [
+        {
+          "name": "geometry",
+          "ioValue": "__GEOMETRY_INPUT__"
+        },
+        {
+          "name": "x-axis degrees",
+          "ioValue": 0
+        },
+        {
+          "name": "y-axis degrees",
+          "ioValue": 0
+        },
+        {
+          "name": "z-axis degrees",
+          "ioValue": 2,
+          "currentEquation": "2"
+        }
+      ]
+    },
+    {
       "atomType": "Code",
-      "x": 0.6527777777777778,
-      "y": 0.649025069637883,
-      "uniqueID": "id-187",
+      "x": 0.6177248677248677,
+      "y": 0.713091922005571,
+      "uniqueID": "id-198",
       "ioValues": [
         {
           "name": "shape",
@@ -186,8 +211,8 @@
         }
       ],
       "interpreterVersion": 1,
-      "code": "function run(\n  shape: Assembly,\n  count: number = 3,\n  angle: number = 20,\n) {\n  const axis: [number, number, number] = [0, 0, 1];\n  const center: [number, number, number] = [0, 0, 0];\n  const center2D: [number, number] = [center[0], center[1]];\n  const shapesArray: Assembly[] = [];\n\n  for (let i = 0; i < count; i++) {\n    const rotationAngle = angle * i;\n\n    const rotatedAssembly = new Assembly(shape).onLeafs((leaf) => {\n      if (leaf.is2D()) {\n        leaf.geometry = leaf.geometry.clone().rotate(rotationAngle, center2D);\n        leaf.plane = leaf.plane.pivot(rotationAngle, axis, center);\n      } else {\n        leaf.geometry = leaf.geometry.clone().rotate(rotationAngle, center, axis);\n      }\n      return leaf;\n    });\n\n    if (rotatedAssembly) {\n      shapesArray.push(rotatedAssembly);\n    }\n  }\n\n  // Return a top-level assembly and disable automatic disjoint/cut behavior.\n  const out = new Assembly({\n    geometry: shapesArray,\n    metadata: { skipAutoDisjoint: true },\n  });\n\n  return out;\n}",
-      "compiledCode": "\"use strict\";\nfunction run(shape, count = 3, angle = 20) {\n    const axis = [0, 0, 1];\n    const center = [0, 0, 0];\n    const center2D = [center[0], center[1]];\n    const shapesArray = [];\n    for (let i = 0; i < count; i++) {\n        const rotationAngle = angle * i;\n        const rotatedAssembly = new Assembly(shape).onLeafs((leaf) => {\n            if (leaf.is2D()) {\n                leaf.geometry = leaf.geometry.clone().rotate(rotationAngle, center2D);\n                leaf.plane = leaf.plane.pivot(rotationAngle, axis, center);\n            }\n            else {\n                leaf.geometry = leaf.geometry.clone().rotate(rotationAngle, center, axis);\n            }\n            return leaf;\n        });\n        if (rotatedAssembly) {\n            shapesArray.push(rotatedAssembly);\n        }\n    }\n    // Return a top-level assembly and disable automatic disjoint/cut behavior.\n    const out = new Assembly({\n        geometry: shapesArray,\n        metadata: { skipAutoDisjoint: true },\n    });\n    return out;\n}\n"
+      "code": "function run(\n  shape: Assembly,\n  count: number = 3,\n  angle: number = 20,\n) {\n  const axis: [number, number, number] = [0, 0, 1];\n  const center: [number, number, number] = [0, 0, 0];\n  const center2D: [number, number] = [center[0], center[1]];\n  const anglePerCopy = angle;\n  const shapesArray: Assembly[] = [];\n\n  for (let i = 0; i < count; i++) {\n    const rotationAngle = anglePerCopy * i;\n\n    const rotatedAssembly = new Assembly(shape).onLeafs((leaf) => {\n      if (leaf.is2D()) {\n        leaf.geometry = leaf.geometry.clone().rotate(rotationAngle, center2D);\n        leaf.plane = leaf.plane.pivot(rotationAngle, axis, center);\n      } else {\n        leaf.geometry = leaf.geometry.clone().rotate(rotationAngle, center, axis);\n      }\n      return leaf;\n    });\n\n    shapesArray.push(rotatedAssembly);\n  }\n\n  return shapesArray;\n}\n",
+      "compiledCode": "\"use strict\";\nfunction run(shape, count = 3, angle = 20) {\n    const axis = [0, 0, 1];\n    const center = [0, 0, 0];\n    const center2D = [center[0], center[1]];\n    const anglePerCopy = angle;\n    const shapesArray = [];\n    for (let i = 0; i < count; i++) {\n        const rotationAngle = anglePerCopy * i;\n        const rotatedAssembly = new Assembly(shape).onLeafs((leaf) => {\n            if (leaf.is2D()) {\n                leaf.geometry = leaf.geometry.clone().rotate(rotationAngle, center2D);\n                leaf.plane = leaf.plane.pivot(rotationAngle, axis, center);\n            }\n            else {\n                leaf.geometry = leaf.geometry.clone().rotate(rotationAngle, center, axis);\n            }\n            return leaf;\n        });\n        shapesArray.push(rotatedAssembly);\n    }\n    return shapesArray;\n}\n"
     }
   ],
   "allConnectors": [
@@ -199,7 +224,7 @@
     {
       "ap2Name": "count",
       "ap1ID": 1727806525687,
-      "ap2ID": "id-187"
+      "ap2ID": "id-198"
     },
     {
       "ap2Name": "angle",
@@ -209,7 +234,7 @@
     {
       "ap2Name": "angle",
       "ap1ID": 1727806534900,
-      "ap2ID": "id-187"
+      "ap2ID": "id-198"
     },
     {
       "ap2Name": "geometry",
@@ -232,9 +257,14 @@
       "ap2ID": "id-100"
     },
     {
+      "ap2Name": "geometry",
+      "ap1ID": "id-145",
+      "ap2ID": "id-192"
+    },
+    {
       "ap2Name": "shape",
       "ap1ID": "id-145",
-      "ap2ID": "id-187"
+      "ap2ID": "id-198"
     },
     {
       "ap2Name": "geometry",
